@@ -16,7 +16,7 @@ SECRET_API_KEY = os.getenv("LAB4_API_KEY")
 
 # Middleware function to check the API Key for authorization
 def check_api_key(request: Request):
-    key_from_request = request.headers.get("DI-KEY")
+    key_from_request = request.headers.get("DI-KEY") or request.query_params.get("DI-KEY")
     if key_from_request != SECRET_API_KEY:
         raise HTTPException(status_code=401, detail="Unauthorized: Invalid API Key")
     return key_from_request
